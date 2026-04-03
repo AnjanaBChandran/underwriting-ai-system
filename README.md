@@ -141,7 +141,7 @@ Document → OCR → Refinement → Summarization → Embeddings → Classificat
 ## 🔗 Related
 
 - [Underwriting AI UI (Frontend)](https://github.com/AnjanaBChandran/underwriting-ai-ui)
-- 
+  
 ## ⚠️ Challenges
 
 - OCR inconsistencies  
