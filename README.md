@@ -1,93 +1,168 @@
-# AI Underwriting Assistant (Production System)
+# AI Underwriting Assistant (Production Architecture)
 
-## 🚀 Problem
+## 🚀 Overview
 
-Life insurance underwriting is document-heavy and time-consuming.
+This project represents a production-scale AI system designed to assist insurance underwriting by generating structured case summaries from multiple documents.
 
-- 10–15 documents per application  
-- ~20 pages per document  
-- Manual review slows decision-making  
-
-👉 Goal: Automate document understanding and assist underwriters with structured insights.
+The system combines medical, financial, and application data into a single unified view, reducing manual review effort and improving decision consistency.
 
 ---
 
-## 🧠 System Overview
+## ⚠️ Problem
 
-End-to-end AI system that processes documents and generates summaries.
+Underwriters face challenges such as:
 
-### Flow:
+- Switching between multiple documents (medical, financial, application forms)  
+- Text-heavy, non-actionable summaries  
+- Manual data extraction (e.g., checking income, identifying medical risks)  
 
-Documents → OCR → Classification → Rule Engine → LLM Summary → UI
-
----
-
-## ⚙️ Tech Stack
-
-- OCR: Azure Document Intelligence  
-- LLM: GPT-4.1  
-- Embeddings: BAAI/bge-m3  
-- Reranker: bge-reranker-v2-m3  
-- Hosting: Azure Kubernetes Service (AKS)  
+👉 Goal: Enable faster, more accurate underwriting through structured AI-driven summaries.
 
 ---
 
-## 🔄 System Design
+## 🧠 System Architecture
 
-### Stage 1: Preprocessing
-- OCR extraction  
-- Document classification  
-- Rule retrieval  
+The system operates as a two-stage pipeline:
 
-### Stage 2: On-Demand Processing
-- Triggered via “Generate Summary”  
-- LLM generates structured output  
+### Stage 1 — Document Processing  
+Transforms raw documents into structured, searchable formats.
+
+### Stage 2 — Rule Evaluation & Summary Generation  
+Evaluates rules using relevant document content and generates final summaries.
+
+---
+
+## 🔄 End-to-End Flow
+
+Document → OCR → Refinement → Summarization → Embeddings → Classification → Retrieval (RAG) → Rule Engine → Final Summary
+
+---
+
+## ⚙️ Core Components
+
+### 1. OCR
+- Extracts raw text from uploaded documents  
+- Output: Unstructured text  
+
+---
+
+### 2. Document Refinement (LLM)
+- Converts raw text into structured format  
+- Extracts key datapoints  
+- Outputs:
+  - Structured markdown text  
+  - Datapoints  
+  - Input to summarizer  
+
+---
+
+### 3. Summarization
+- Generates extractive summary  
+- Provides contextual understanding  
+- Stored alongside document  
+
+---
+
+### 4. Embedding Generation
+- Converts document chunks into vectors  
+- Enables semantic retrieval  
+
+---
+
+### 5. Classification (Reranker)
+- Classifies document types  
+- Handles merged documents  
+- Routes documents to appropriate rule sets  
+
+---
+
+### 6. Retrieval (RAG)
+- Fetches only relevant document chunks  
+- Reduces token usage  
+- Improves precision  
+
+---
+
+### 7. Rule Engine (LLM)
+- Evaluates predefined rules  
+- Uses:
+  - Retrieved document chunks  
+  - Summary context  
+
+- Output:
+  - PASS / FAIL  
+  - Extracted values  
+
+---
+
+### 8. Summary Engine (LLM)
+- Generates final structured underwriting summary  
+- Combines outputs across documents  
+
+---
+
+## 📊 Scale (Representative)
+
+- Hundreds of applications processed daily
+- Multi-document inputs per case  
+- Multiple LLM calls per document  
+
+---
+
+## 🧩 Architecture Diagram
+
+
+
+---
+
+## 📄 Sample Output
+
+
 
 ---
 
 ## ⚖️ Key Design Decisions
 
-### Full Context vs RAG
-- Started with full document context  
-- RAG planned for optimization  
-
-### Hybrid Rule + LLM
-- Rules handle deterministic checks  
-- LLM handles interpretation  
+### Full Document vs RAG
+- Initial system uses full context for accuracy  
+- RAG introduced for cost optimization  
 
 ---
 
-## 📊 Scale
+### Hybrid System (Rules + LLM)
+- Rules → deterministic checks  
+- LLM → interpretation  
 
-- ~600 applications/month  
-- 10–15 documents per case  
-- ~3 LLM calls per document  
+👉 Reduces hallucination risk  
 
 ---
 
 ## ⚠️ Challenges
 
 - OCR inconsistencies  
-- Hallucination risk  
-- Latency vs cost tradeoffs  
+- Handling multi-document context  
+- Balancing cost vs latency  
+- Ensuring reliable outputs  
 
 ---
 
 ## 📈 Learnings
 
-- LLMs require guardrails in production  
-- Hybrid systems outperform pure LLMs  
-- Evaluation is critical  
+- LLMs require strong guardrails in production  
+- Hybrid systems outperform pure LLM pipelines  
+- Retrieval improves efficiency but requires tuning  
 
 ---
 
 ## 👩‍💼 My Role
 
-- Coordinated between business, vendor, and engineering  
-- Defined tradeoffs (cost vs accuracy vs latency) 
+- Designed system architecture  
+- Defined AI pipeline and tradeoffs  
+- Coordinated between business and engineering teams  
+- Led development from concept to production  
 
 ---
 
-## 🔗 Related
+## 🔒 Note
 
-(UI repo link to be added)
+This is a generalized architecture representation based on a production AI system. Specific implementation details have been abstracted.
