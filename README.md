@@ -111,7 +111,9 @@ Document → OCR → Refinement → Summarization → Embeddings → Classificat
 
 ## 🧩 Architecture Diagram
 
-
+<p align="center">
+  <img src="architecture.png" width="800"/>
+</p>
 
 ---
 
