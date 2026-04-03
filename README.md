@@ -119,7 +119,7 @@ Document → OCR → Refinement → Summarization → Embeddings → Classificat
 
 ## 📄 Sample Output
 
-
+See example output here: [Sample Output](sample-output.md)
 
 ---
 
