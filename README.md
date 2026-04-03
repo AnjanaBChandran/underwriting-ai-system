@@ -155,8 +155,7 @@ Document → OCR → Refinement → Summarization → Embeddings → Classificat
 ---
 
 ## 👩‍💼 My Role
-
-- Designed system architecture  
+ 
 - Defined AI pipeline and tradeoffs  
 - Coordinated between business and engineering teams  
 - Led development from concept to production  
